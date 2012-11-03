@@ -1,0 +1,3 @@
+This is a simple twitter stream reader for .NET I put together in a couple hours. That opens up a connection to a twitter stream and uses tasks to provide callbacks to deal with the tweets it grabs.
+
+Credit for the basic layout of the connection goes to  swhitley and his TwitStreamClient.
