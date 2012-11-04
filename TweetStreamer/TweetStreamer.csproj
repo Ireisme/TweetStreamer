@@ -43,8 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Contributor.cs" />
+    <Compile Include="Model\Coordinates.cs" />
+    <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\Place.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="TwitterStreamParameters\TweetLocation.cs" />
-    <Compile Include="Tweet.cs" />
+    <Compile Include="Model\Tweet.cs" />
     <Compile Include="TweetStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TwitterStreamParameters\TweetStreamParameters.cs" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TweetStreamer.Model;
 
 namespace TweetStreamer
 {
@@ -16,6 +17,8 @@ namespace TweetStreamer
         HttpWebRequest request;
         TweetStreamParameters streamParameters;
         bool stream = true;
+
+        public Action<Exception> OnException { get; set; }
 
         public TweetStream(TweetStreamParameters streamParameters)
         {
@@ -57,25 +60,30 @@ namespace TweetStreamer
 
             while (stream)
             {
-                string json = responseStream.ReadLine();
-
-                var atweet = JsonConvert.DeserializeObject<dynamic>(json);
-
-                if (atweet != null)
+                try
                 {
-                    if (atweet.text != null)
-                    {
-                        Tweet tweet = new Tweet
-                        {
-                            CreatedAt = atweet.created_at,
-                            ImageUrl = atweet.user.profile_image_url,
-                            TweetText = atweet.text,
-                            User = atweet.user.name
-                        };
+                    string json = responseStream.ReadLine();
 
-                        Task task = new Task(() => action(tweet));
-                        task.Start();
+                    if (json != null)
+                    {
+                        var tweet = JsonConvert.DeserializeObject<Tweet>(json);
+
+                        if (tweet != null)
+                        {
+                            if (tweet.id != 0)
+                            {
+                                Task task = new Task(() => action(tweet));
+                                task.Start();
+                            }
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    if (OnException != null)
+                        OnException(ex);
+                    else
+                        throw ex;
                 }
             }
 
