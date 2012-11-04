@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetStreamer;
+using TweetStreamer.Model;
 
 namespace WindowsFormsApplication1
 {
@@ -57,7 +58,7 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    this.grid.Rows.Add(tweet.User, tweet.TweetText);
+                    this.grid.Rows.Add(grid.Rows.Count + 1, tweet.user.ToString(), tweet.text);
                 }
             }
         }

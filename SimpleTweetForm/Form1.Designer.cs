@@ -44,9 +44,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtLatSw = new System.Windows.Forms.TextBox();
             this.grid = new System.Windows.Forms.DataGridView();
+            this.button3 = new System.Windows.Forms.Button();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.User = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tweet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             this.SuspendLayout();
@@ -205,23 +206,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Count,
             this.User,
             this.Tweet});
             this.grid.Location = new System.Drawing.Point(12, 13);
             this.grid.Name = "grid";
             this.grid.Size = new System.Drawing.Size(746, 315);
             this.grid.TabIndex = 13;
-            // 
-            // User
-            // 
-            this.User.HeaderText = "User";
-            this.User.Name = "User";
-            // 
-            // Tweet
-            // 
-            this.Tweet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Tweet.HeaderText = "Tweet";
-            this.Tweet.Name = "Tweet";
             // 
             // button3
             // 
@@ -234,6 +225,22 @@
             this.button3.Text = "Clear";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Count";
+            this.Count.Name = "Count";
+            // 
+            // User
+            // 
+            this.User.HeaderText = "User";
+            this.User.Name = "User";
+            // 
+            // Tweet
+            // 
+            this.Tweet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Tweet.HeaderText = "Tweet";
+            this.Tweet.Name = "Tweet";
             // 
             // Form1
             // 
@@ -281,9 +288,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtLatSw;
         private System.Windows.Forms.DataGridView grid;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
         private System.Windows.Forms.DataGridViewTextBoxColumn User;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tweet;
-        private System.Windows.Forms.Button button3;
     }
 }
 
