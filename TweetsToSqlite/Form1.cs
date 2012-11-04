@@ -22,7 +22,6 @@ namespace TweetsToSqlite
         public Form1()
         {
             InitializeComponent();
-            lblTweetsSaved.DataBindings.Add("Text", this, "TweetsSoFar");
             SqliteHelper.CheckSqliteDB();
         }
 
@@ -30,7 +29,6 @@ namespace TweetsToSqlite
         {
             if (txtUsername.Text != string.Empty && txtPassword.Text != string.Empty)
             {
-
                 groupBox1.Enabled = false;
                 groupBox2.Enabled = false;
                 groupBox3.Enabled = false;
@@ -85,9 +83,10 @@ namespace TweetsToSqlite
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            stream.StopStream();
+            if(stream != null)
+                stream.StopStream();
         }
     }
 }
