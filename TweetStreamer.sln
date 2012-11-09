@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStreamer", "TweetStrea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTweetForm", "SimpleTweetForm\SimpleTweetForm.csproj", "{60CD5D44-BDEE-435E-8951-135BCA28B0D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetsToSqlite", "TweetsToSqlite\TweetsToSqlite.csproj", "{EC2DE7C6-AD50-42C5-A09F-553F77A69DBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetsToDB", "TweetsToDB\TweetsToDB.csproj", "{EC2DE7C6-AD50-42C5-A09F-553F77A69DBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace TweetsToSqlite
+﻿namespace TweetsToDB
 {
     partial class Form1
     {
@@ -47,15 +47,19 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblTweetsSaved = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rdSqlServer = new System.Windows.Forms.RadioButton();
+            this.rdSqlite = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(143, 251);
+            this.button1.Location = new System.Drawing.Point(198, 251);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -67,7 +71,7 @@
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Location = new System.Drawing.Point(224, 251);
+            this.button2.Location = new System.Drawing.Point(279, 251);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -237,11 +241,45 @@
             this.lblTweetsSaved.TabIndex = 18;
             this.lblTweetsSaved.Text = "0";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.rdSqlite);
+            this.groupBox4.Controls.Add(this.rdSqlServer);
+            this.groupBox4.Location = new System.Drawing.Point(347, 86);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(185, 151);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Persistence";
+            // 
+            // rdSqlServer
+            // 
+            this.rdSqlServer.AutoSize = true;
+            this.rdSqlServer.Checked = true;
+            this.rdSqlServer.Location = new System.Drawing.Point(7, 21);
+            this.rdSqlServer.Name = "rdSqlServer";
+            this.rdSqlServer.Size = new System.Drawing.Size(74, 17);
+            this.rdSqlServer.TabIndex = 0;
+            this.rdSqlServer.TabStop = true;
+            this.rdSqlServer.Text = "Sql Server";
+            this.rdSqlServer.UseVisualStyleBackColor = true;
+            // 
+            // rdSqlite
+            // 
+            this.rdSqlite.AutoSize = true;
+            this.rdSqlite.Location = new System.Drawing.Point(7, 41);
+            this.rdSqlite.Name = "rdSqlite";
+            this.rdSqlite.Size = new System.Drawing.Size(51, 17);
+            this.rdSqlite.TabIndex = 1;
+            this.rdSqlite.Text = "Sqlite";
+            this.rdSqlite.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 286);
+            this.ClientSize = new System.Drawing.Size(544, 286);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.lblTweetsSaved);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox3);
@@ -257,6 +295,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,6 +323,9 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblTweetsSaved;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton rdSqlite;
+        private System.Windows.Forms.RadioButton rdSqlServer;
     }
 }
 

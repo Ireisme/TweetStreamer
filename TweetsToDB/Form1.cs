@@ -8,10 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TweetsToDB.Sqlite;
+using TweetsToDB.SqlServer;
 using TweetStreamer;
 using TweetStreamer.Model;
 
-namespace TweetsToSqlite
+namespace TweetsToDB
 {
     public partial class Form1 : Form
     {
@@ -22,16 +24,13 @@ namespace TweetsToSqlite
         public Form1()
         {
             InitializeComponent();
-            SqliteHelper.CheckSqliteDB();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (txtUsername.Text != string.Empty && txtPassword.Text != string.Empty)
             {
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
+                EnableUi(false);
 
                 TweetStreamParameters param = new TweetStreamParameters(txtUsername.Text, txtPassword.Text);
 
@@ -44,11 +43,15 @@ namespace TweetsToSqlite
                 stream = new TweetStream(param);
                 stream.OnException = (ex) => Log.Instance.ErrorException("Error Reading TweetStream", ex);
 
+                var persistance = GetPersistance();
+
                 Task task = new Task(() => stream.Stream(t =>
                     {
-                        SqliteHelper.PersistTweet(t);
-                        tweets++;
-                        UpdateNumber(tweets);
+                        if (persistance.PersistTweet(t))
+                        {
+                            tweets++;
+                            UpdateNumber(tweets);
+                        }
                     }));
 
                 task.Start();
@@ -65,11 +68,26 @@ namespace TweetsToSqlite
 
             tweets = 0;
 
-            groupBox1.Enabled = true;
-            groupBox2.Enabled = true;
-            groupBox3.Enabled = true;
+            EnableUi(true);
         }
 
+        private void EnableUi(bool enabled)
+        {
+            groupBox1.Enabled = enabled;
+            groupBox2.Enabled = enabled;
+            groupBox3.Enabled = enabled;
+            groupBox4.Enabled = enabled;
+        }
+
+        private ICanPersistTweet GetPersistance()
+        {
+            if (rdSqlServer.Checked)
+                return new SqlServerHelper();
+            else if (rdSqlite.Checked)
+                return new SqliteHelper();
+
+            return null;
+        }
         private void UpdateNumber(int tweets)
         {
             if (this.lblTweetsSaved.InvokeRequired)

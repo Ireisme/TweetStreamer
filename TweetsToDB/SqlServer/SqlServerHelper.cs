@@ -1,65 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TweetStreamer.Model;
 using Dapper;
-using NLog;
+using Newtonsoft.Json;
 
-namespace TweetsToSqlite
+namespace TweetsToDB.SqlServer
 {
-    public static class SqliteHelper
+    public class SqlServerHelper : ICanPersistTweet
     {
-        const string PATH_TO_DB = "tweets.sqlite";
-        const string CONNECTION_STRING = "Data Source={0};Version=3;New=True;Compress=True;";
-        const string CREATE_TWEET_TABLE = @"Create Table Tweets
-                                            (
-                                                id BIGINT NOT NULL,
-                                                created_at VARCHAR(50),
-                                                in_reply_to_screen_name VARCHAR(100),
-                                                in_reply_to_status_id BIGINT,
-                                                place_full_name VARCHAR(100),
-                                                retweet_count INT,
-                                                retweeted BOOLEAN,
-                                                text VARCHAR(150),
-                                                user_name VARCHAR(35),
-                                                user_id BIGINT NOT NULL,
-                                                user_location VARCHAR(100),
-                                                user_description VARCHAR(100),
-                                                user_followers_count INT,
-                                                user_friends_count INT,
-                                                user_url VARCHAR(100),
-                                                lat DECIMAL(10,6),
-                                                lon DECIMAL(10,6)
-                                            )";
+        const string CONNECTION_STRING = "Data Source={0};Initial Catalog={1};User Id={2};Password={3};";
 
-        public static void CheckSqliteDB()
-        {
-            if (!File.Exists(PATH_TO_DB))
-            {
-                SQLiteConnection.CreateFile(PATH_TO_DB);
-            }
-
-            SQLiteConnection conn = new SQLiteConnection(string.Format(CONNECTION_STRING, PATH_TO_DB));
-
-            SQLiteCommand cmd = conn.CreateCommand();
-
-            conn.Open();
-            cmd.CommandText = "SELECT 1 FROM sqlite_master WHERE type='table' AND name='Tweets'";
-
-            var table = cmd.ExecuteScalar();
-
-            if (table == null)
-            {
-                cmd.CommandText = CREATE_TWEET_TABLE;
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public static void PersistTweet(Tweet tweet)
+        public bool PersistTweet(Tweet tweet)
         {
             var t = new
             {
@@ -123,7 +78,8 @@ namespace TweetsToSqlite
                                     @lon
                                 )";
 
-            using (SQLiteConnection conn = new SQLiteConnection(string.Format(CONNECTION_STRING, PATH_TO_DB)))
+            using (SqlConnection conn = new SqlConnection(string.Format(CONNECTION_STRING, 
+                SqlServerConfig.Config.DataSource, SqlServerConfig.Config.Database, SqlServerConfig.Config.User, SqlServerConfig.Config.Password)))
             {
                 try
                 {
@@ -132,12 +88,15 @@ namespace TweetsToSqlite
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.ErrorException("Failed to Persist Tweet to database.", ex);
+                    Log.Instance.ErrorException("Failed to Persist Tweet to database.\n" + JsonConvert.SerializeObject(t), ex);
+                    return false;
                 }
                 finally
                 {
                     conn.Close();
                 }
+
+                return true;
             }
         }
     }
