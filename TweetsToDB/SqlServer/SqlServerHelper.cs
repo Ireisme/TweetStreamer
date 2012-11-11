@@ -29,10 +29,10 @@ namespace TweetsToDB.SqlServer
                 user_name = tweet.user.name,
                 user_id = tweet.user.id,
                 user_location = tweet.user.location,
-                user_description = tweet.user.description.Substring(0, 300),
+                user_description = !string.IsNullOrEmpty(tweet.user.description) ? tweet.user.description.Length > 100 ? tweet.user.description.Substring(0, 100) : tweet.user.description : "",
                 user_followers_count = tweet.user.followers_count,
                 user_friends_count = tweet.user.friends_count,
-                user_url = tweet.user.url.Substring(0, 150),
+                user_url = !string.IsNullOrEmpty(tweet.user.url) ? tweet.user.url.Length > 250 ? tweet.user.url.Substring(0, 250) : tweet.user.url : "",
                 lat = tweet.coordinates != null ? tweet.coordinates.coordinates[1] : 0,
                 lon = tweet.coordinates != null ? tweet.coordinates.coordinates[0] : 0
             };
