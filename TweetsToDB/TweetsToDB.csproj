@@ -86,6 +86,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Geocode\GeocodeTweet.cs" />
     <Compile Include="ICanPersistTweet.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />

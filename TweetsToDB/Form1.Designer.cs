@@ -46,20 +46,30 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblTweetsSaved = new System.Windows.Forms.Label();
+            this.lblTweetsGrabbed = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.rdSqlServer = new System.Windows.Forms.RadioButton();
             this.rdSqlite = new System.Windows.Forms.RadioButton();
+            this.rdSqlServer = new System.Windows.Forms.RadioButton();
+            this.rdLocation = new System.Windows.Forms.RadioButton();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.rdFilter = new System.Windows.Forms.RadioButton();
+            this.lblTweetsMissed = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblErrors = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblTweetsSaved = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(198, 251);
+            this.button1.Location = new System.Drawing.Point(198, 337);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -71,7 +81,7 @@
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Location = new System.Drawing.Point(279, 251);
+            this.button2.Location = new System.Drawing.Point(279, 337);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -114,7 +124,7 @@
             // 
             // txtFilter
             // 
-            this.txtFilter.Location = new System.Drawing.Point(54, 19);
+            this.txtFilter.Location = new System.Drawing.Point(54, 10);
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(260, 20);
             this.txtFilter.TabIndex = 8;
@@ -122,7 +132,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 22);
+            this.label3.Location = new System.Drawing.Point(11, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 9;
@@ -131,7 +141,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 45);
+            this.label4.Location = new System.Drawing.Point(11, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 11;
@@ -139,7 +149,7 @@
             // 
             // txtUsers
             // 
-            this.txtUsers.Location = new System.Drawing.Point(54, 42);
+            this.txtUsers.Location = new System.Drawing.Point(54, 33);
             this.txtUsers.Name = "txtUsers";
             this.txtUsers.Size = new System.Drawing.Size(260, 20);
             this.txtUsers.TabIndex = 10;
@@ -152,12 +162,11 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtLatSw);
             this.groupBox1.Enabled = false;
-            this.groupBox1.Location = new System.Drawing.Point(7, 67);
+            this.groupBox1.Location = new System.Drawing.Point(7, 137);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(187, 84);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Location";
             // 
             // txtLatNe
             // 
@@ -201,7 +210,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtPassword);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(16, 104);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(181, 68);
             this.groupBox2.TabIndex = 15;
@@ -210,14 +219,13 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.txtFilter);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.txtUsers);
+            this.groupBox3.Controls.Add(this.rdFilter);
+            this.groupBox3.Controls.Add(this.groupBox5);
+            this.groupBox3.Controls.Add(this.rdLocation);
             this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Location = new System.Drawing.Point(12, 86);
+            this.groupBox3.Location = new System.Drawing.Point(203, 104);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(329, 157);
+            this.groupBox3.Size = new System.Drawing.Size(329, 227);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Query";
@@ -225,32 +233,42 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(221, 25);
+            this.label7.Location = new System.Drawing.Point(9, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.Size = new System.Drawing.Size(89, 13);
             this.label7.TabIndex = 17;
-            this.label7.Text = "Tweets Saved:";
+            this.label7.Text = "Tweets Grabbed:";
             // 
-            // lblTweetsSaved
+            // lblTweetsGrabbed
             // 
-            this.lblTweetsSaved.AutoSize = true;
-            this.lblTweetsSaved.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTweetsSaved.Location = new System.Drawing.Point(325, 17);
-            this.lblTweetsSaved.Name = "lblTweetsSaved";
-            this.lblTweetsSaved.Size = new System.Drawing.Size(21, 24);
-            this.lblTweetsSaved.TabIndex = 18;
-            this.lblTweetsSaved.Text = "0";
+            this.lblTweetsGrabbed.AutoSize = true;
+            this.lblTweetsGrabbed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTweetsGrabbed.Location = new System.Drawing.Point(113, 12);
+            this.lblTweetsGrabbed.Name = "lblTweetsGrabbed";
+            this.lblTweetsGrabbed.Size = new System.Drawing.Size(21, 24);
+            this.lblTweetsGrabbed.TabIndex = 18;
+            this.lblTweetsGrabbed.Text = "0";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.rdSqlite);
             this.groupBox4.Controls.Add(this.rdSqlServer);
-            this.groupBox4.Location = new System.Drawing.Point(347, 86);
+            this.groupBox4.Location = new System.Drawing.Point(12, 178);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(185, 151);
+            this.groupBox4.Size = new System.Drawing.Size(185, 153);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Persistence";
+            // 
+            // rdSqlite
+            // 
+            this.rdSqlite.AutoSize = true;
+            this.rdSqlite.Location = new System.Drawing.Point(7, 41);
+            this.rdSqlite.Name = "rdSqlite";
+            this.rdSqlite.Size = new System.Drawing.Size(51, 17);
+            this.rdSqlite.TabIndex = 1;
+            this.rdSqlite.Text = "Sqlite";
+            this.rdSqlite.UseVisualStyleBackColor = true;
             // 
             // rdSqlServer
             // 
@@ -264,23 +282,113 @@
             this.rdSqlServer.Text = "Sql Server";
             this.rdSqlServer.UseVisualStyleBackColor = true;
             // 
-            // rdSqlite
+            // rdLocation
             // 
-            this.rdSqlite.AutoSize = true;
-            this.rdSqlite.Location = new System.Drawing.Point(7, 41);
-            this.rdSqlite.Name = "rdSqlite";
-            this.rdSqlite.Size = new System.Drawing.Size(51, 17);
-            this.rdSqlite.TabIndex = 1;
-            this.rdSqlite.Text = "Sqlite";
-            this.rdSqlite.UseVisualStyleBackColor = true;
+            this.rdLocation.AutoSize = true;
+            this.rdLocation.Checked = true;
+            this.rdLocation.Location = new System.Drawing.Point(7, 115);
+            this.rdLocation.Name = "rdLocation";
+            this.rdLocation.Size = new System.Drawing.Size(66, 17);
+            this.rdLocation.TabIndex = 13;
+            this.rdLocation.TabStop = true;
+            this.rdLocation.Text = "Location";
+            this.rdLocation.UseVisualStyleBackColor = true;
+            this.rdLocation.CheckedChanged += new System.EventHandler(this.rdLocation_CheckedChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label3);
+            this.groupBox5.Controls.Add(this.label4);
+            this.groupBox5.Controls.Add(this.txtFilter);
+            this.groupBox5.Controls.Add(this.txtUsers);
+            this.groupBox5.Location = new System.Drawing.Point(7, 50);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(320, 58);
+            this.groupBox5.TabIndex = 14;
+            this.groupBox5.TabStop = false;
+            // 
+            // rdFilter
+            // 
+            this.rdFilter.AutoSize = true;
+            this.rdFilter.Location = new System.Drawing.Point(7, 27);
+            this.rdFilter.Name = "rdFilter";
+            this.rdFilter.Size = new System.Drawing.Size(47, 17);
+            this.rdFilter.TabIndex = 15;
+            this.rdFilter.Text = "Filter";
+            this.rdFilter.UseVisualStyleBackColor = true;
+            this.rdFilter.CheckedChanged += new System.EventHandler(this.rdFilter_CheckedChanged);
+            // 
+            // lblTweetsMissed
+            // 
+            this.lblTweetsMissed.AutoSize = true;
+            this.lblTweetsMissed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTweetsMissed.Location = new System.Drawing.Point(318, 12);
+            this.lblTweetsMissed.Name = "lblTweetsMissed";
+            this.lblTweetsMissed.Size = new System.Drawing.Size(21, 24);
+            this.lblTweetsMissed.TabIndex = 21;
+            this.lblTweetsMissed.Text = "0";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(207, 20);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(81, 13);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Tweets Missed:";
+            // 
+            // lblErrors
+            // 
+            this.lblErrors.AutoSize = true;
+            this.lblErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrors.Location = new System.Drawing.Point(460, 12);
+            this.lblErrors.Name = "lblErrors";
+            this.lblErrors.Size = new System.Drawing.Size(21, 24);
+            this.lblErrors.TabIndex = 23;
+            this.lblErrors.Text = "0";
+            this.lblErrors.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(390, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(37, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Errors:";
+            // 
+            // lblTweetsSaved
+            // 
+            this.lblTweetsSaved.AutoSize = true;
+            this.lblTweetsSaved.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTweetsSaved.Location = new System.Drawing.Point(113, 52);
+            this.lblTweetsSaved.Name = "lblTweetsSaved";
+            this.lblTweetsSaved.Size = new System.Drawing.Size(21, 24);
+            this.lblTweetsSaved.TabIndex = 20;
+            this.lblTweetsSaved.Text = "0";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 60);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(79, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Tweets Saved:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 286);
-            this.Controls.Add(this.groupBox4);
+            this.ClientSize = new System.Drawing.Size(544, 372);
             this.Controls.Add(this.lblTweetsSaved);
+            this.Controls.Add(this.lblErrors);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.lblTweetsMissed);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.lblTweetsGrabbed);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -297,6 +405,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,10 +432,19 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblTweetsSaved;
+        private System.Windows.Forms.Label lblTweetsGrabbed;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rdSqlite;
         private System.Windows.Forms.RadioButton rdSqlServer;
+        private System.Windows.Forms.RadioButton rdFilter;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton rdLocation;
+        private System.Windows.Forms.Label lblTweetsMissed;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblErrors;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblTweetsSaved;
+        private System.Windows.Forms.Label label13;
     }
 }
 

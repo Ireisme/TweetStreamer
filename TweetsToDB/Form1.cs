@@ -19,18 +19,20 @@ namespace TweetsToDB
     {
         TweetStream stream;
         int tweets = 0;
-        delegate void SetTextCallback(int tweets);
+        delegate void SetPersistedCallback(int persisted);
+        delegate void SetStreamStatusCallback(TweetStream.StreamStatus status);
 
         public Form1()
         {
             InitializeComponent();
+
+            EnableFilterUi(SearchType.Location);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (txtUsername.Text != string.Empty && txtPassword.Text != string.Empty)
             {
-                EnableUi(false);
 
                 TweetStreamParameters param = new TweetStreamParameters(txtUsername.Text, txtPassword.Text);
 
@@ -40,6 +42,27 @@ namespace TweetsToDB
                 if (txtUsers.Text != string.Empty)
                     param.Filters = txtFilter.Text.Split(',').ToList();
 
+                if (txtLatSw.Text != string.Empty && txtLatNe.Text != string.Empty)
+                {
+                    try
+                    {
+                        float swX = Convert.ToSingle(txtLatSw.Text.Split(',').First());
+                        float swY = Convert.ToSingle(txtLatSw.Text.Split(',').Last());
+
+                        float neX = Convert.ToSingle(txtLatNe.Text.Split(',').First());
+                        float neY = Convert.ToSingle(txtLatNe.Text.Split(',').Last());
+
+                        param.Locations.Add(new TweetLocation { SouthWestCorner = new PointF(swX, swY), NorthEastCorner = new PointF(neX, neY) });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Fix your locations chump!", "You're a chump!");
+                        return;
+                    }
+                }
+
+                EnableUi(false);
+
                 stream = new TweetStream(param);
                 stream.OnException = (ex) => Log.Instance.ErrorException("Error Reading TweetStream", ex);
 
@@ -47,10 +70,12 @@ namespace TweetsToDB
 
                 Task task = new Task(() => stream.Stream(t =>
                     {
+                        UpdateStreamStatus(stream.Status);
+
                         if (persistance.PersistTweet(t))
                         {
                             tweets++;
-                            UpdateNumber(tweets);
+                            UpdatePersisted(tweets);
                         }
                     }));
 
@@ -62,21 +87,45 @@ namespace TweetsToDB
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        void button2_Click(object sender, EventArgs e)
         {
-            stream.StopStream();
+            if (stream != null)
+            {
+                stream.StopStream();
+            }
 
-            tweets = 0;
+            lblTweetsSaved.Text = "0";
+            lblTweetsGrabbed.Text = "0";
+            lblTweetsMissed.Text = "0";
+            lblErrors.Text = "0";
 
             EnableUi(true);
         }
 
-        private void EnableUi(bool enabled)
+        void EnableUi(bool enabled)
         {
             groupBox1.Enabled = enabled;
             groupBox2.Enabled = enabled;
             groupBox3.Enabled = enabled;
             groupBox4.Enabled = enabled;
+            groupBox5.Enabled = enabled;
+        }
+
+        void EnableFilterUi(SearchType type)
+        {
+            switch (type)
+            {
+                case SearchType.Location:
+                    groupBox1.Enabled = true;
+                    groupBox5.Enabled = false;
+                    break;
+                case SearchType.Filter:
+                    groupBox5.Enabled = true;
+                    groupBox1.Enabled = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private ICanPersistTweet GetPersistance()
@@ -88,16 +137,31 @@ namespace TweetsToDB
 
             return null;
         }
-        private void UpdateNumber(int tweets)
+        private void UpdatePersisted(int persisted)
         {
             if (this.lblTweetsSaved.InvokeRequired)
             {
-                SetTextCallback d = new SetTextCallback(UpdateNumber);
-                this.Invoke(d, new object[] { tweets });
+                SetPersistedCallback d = new SetPersistedCallback(UpdatePersisted);
+                this.Invoke(d, new object[] { persisted });
             }
             else
             {
-                lblTweetsSaved.Text = tweets.ToString();
+                lblTweetsSaved.Text = persisted.ToString();
+            }
+        }
+
+        private void UpdateStreamStatus(TweetStream.StreamStatus status)
+        {
+            if (this.lblTweetsGrabbed.InvokeRequired || lblErrors.InvokeRequired || lblTweetsMissed.InvokeRequired)
+            {
+                SetStreamStatusCallback d = new SetStreamStatusCallback(UpdateStreamStatus);
+                this.Invoke(d, new object[] { status });
+            }
+            else
+            {
+                lblTweetsGrabbed.Text = status.TweetsGrabbed.ToString();
+                lblTweetsMissed.Text = status.MissedTweets.ToString();
+                lblErrors.Text = status.Error.ToString();
             }
         }
 
@@ -105,6 +169,29 @@ namespace TweetsToDB
         {
             if(stream != null)
                 stream.StopStream();
+        }
+
+        private void rdLocation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdLocation.Checked)
+                EnableFilterUi(SearchType.Location);
+        }
+
+        enum SearchType
+        {
+            Location,
+            Filter
+        }
+
+        private void rdFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdFilter.Checked)
+                EnableFilterUi(SearchType.Filter);
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

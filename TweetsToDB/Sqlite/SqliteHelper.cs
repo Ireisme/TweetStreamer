@@ -28,7 +28,7 @@ namespace TweetsToDB.Sqlite
                                                 user_name VARCHAR(35),
                                                 user_id BIGINT NOT NULL,
                                                 user_location VARCHAR(100),
-                                                user_description VARCHAR(100),
+                                                user_description VARCHAR(500),
                                                 user_followers_count INT,
                                                 user_friends_count INT,
                                                 user_url VARCHAR(100),
