@@ -19,6 +19,10 @@ namespace TweetStreamer
         {
             this.Username = Username;
             this.Password = Password;
+
+            Locations = new List<TweetLocation>();
+            Filters = new List<string>();
+            Users = new List<string>();
         }
 
         public string PostParameters()
@@ -32,7 +36,10 @@ namespace TweetStreamer
             if(Users != null)
                 users = Users.Count() > 0 ? string.Format("&follow={0}", Users.Aggregate((u1, u2) => u1 + "," + u2)) : string.Empty;
             if(Locations != null)
-                locations = Locations.Count() > 0 ? string.Format("&locations={0}", Locations.ConvertAll<string>(l => l.ToString()).Aggregate((l1, l2) => l1 + "," + l2)) : string.Empty;
+                locations = Locations.Count() > 0 ? string.Format("&locations={0}", Locations
+                    .ConvertAll<string>(l => string.Format("{0},{1},{2},{3}", 
+                        l.SouthWestCorner.X.ToString(), l.SouthWestCorner.Y.ToString(), l.NorthEastCorner.X.ToString(), l.NorthEastCorner.Y.ToString()))
+                    .Aggregate((l1, l2) => l1 + "," + l2)) : string.Empty;
 
             return string.Format("{0}{1}{2}", filters, users, locations);
         }

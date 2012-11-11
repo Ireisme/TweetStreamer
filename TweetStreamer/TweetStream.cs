@@ -20,9 +20,14 @@ namespace TweetStreamer
 
         public Action<Exception> OnException { get; set; }
 
+        StreamStatus status;
+        public StreamStatus Status { get { return status; } }
+
         public TweetStream(TweetStreamParameters streamParameters)
         {
             this.streamParameters = streamParameters;
+
+            status = new StreamStatus();
         }
 
         void SetupStream()
@@ -68,18 +73,26 @@ namespace TweetStreamer
                     {
                         var tweet = JsonConvert.DeserializeObject<Tweet>(json);
 
-                        if (tweet != null)
+                        if (tweet.id != 0)
                         {
-                            if (tweet.id != 0)
-                            {
-                                Task task = new Task(() => action(tweet));
-                                task.Start();
-                            }
+                            status.TweetsGrabbed++;
+
+                            Task task = new Task(() => action(tweet));
+                            task.Start();
+                        }
+                        else
+                        {
+                            var missed = JsonConvert.DeserializeObject<MissedTweets>(json);
+
+                            if (missed.limit.track > 0)
+                                status.MissedTweets = missed.limit.track;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    status.Error++;
+
                     if (OnException != null)
                         OnException(ex);
                     else
@@ -95,6 +108,13 @@ namespace TweetStreamer
         public void StopStream()
         {
             stream = false;
+        }
+
+        public class StreamStatus
+        {
+            public int TweetsGrabbed { get; internal set; }
+            public int MissedTweets { get; internal set; }
+            public int Error { get; internal set; }
         }
     }
 }

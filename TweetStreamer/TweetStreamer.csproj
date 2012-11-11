@@ -46,6 +46,7 @@
     <Compile Include="Model\Contributor.cs" />
     <Compile Include="Model\Coordinates.cs" />
     <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\Limit.cs" />
     <Compile Include="Model\Place.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="TwitterStreamParameters\TweetLocation.cs" />
