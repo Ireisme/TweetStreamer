@@ -19,7 +19,7 @@ namespace TweetsToDB.SqlServer
             var t = new
             {
                 id = tweet.id,
-                created_at = tweet.created_at,
+                created_at = tweet.created_at_dt,
                 in_reply_to_screen_name = tweet.in_reply_to_screen_name,
                 in_reply_to_status_id = tweet.in_reply_to_status_id,
                 place_full_name = tweet.place != null ? tweet.place.full_name : "",

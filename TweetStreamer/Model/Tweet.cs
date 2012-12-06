@@ -34,10 +34,14 @@ namespace TweetStreamer.Model
         public string[] withheld_in_countries { get; set; }
         public string withheld_scope { get; set; }
 
+        public DateTime created_at_dt
+        {
+            get
+            {
+                string year = created_at.Substring(created_at.Length - 4);
+                string date = created_at.Substring(0, 19);
+                return DateTime.Parse(date.Insert(11, year + " "));
+            }
+        }
     }
 }
-
-    //CreatedAt = atweet.created_at,
-    //ImageUrl = atweet.user.profile_image_url,
-    //TweetText = atweet.text,
-    //User = atweet.user.name
